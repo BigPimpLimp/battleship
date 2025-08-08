@@ -10,13 +10,10 @@ export class Ship {
 		this.hits = this.hits + 1;
 	}
 
-	isSunk() {
+	checkIfSunk() {
 		if (this.hits >= this.length) {
 			this.sunk = true;
 		}
 	}
 }
 
-export const carrier = new Ship(3)
-carrier.hit()
-carrier.hit()

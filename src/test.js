@@ -1,5 +1,5 @@
-import { carrier } from './ship';
-import { gb } from './gameboard';
+import { carrier, gb } from './index';
+
 test('length', () => {
     expect(carrier.length).toBe(3)
 })
@@ -21,4 +21,16 @@ describe('Gameboard tests', () => {
         isHit: false
     })
   })
+
+  // test('gameboard recieve attack', () => {
+  //   const mockShip = {
+
+  //   }
+  //   expect(gb.recieveAttack([0, 1])).toEqual('Already hit dummy!')
+  // })
+
+  test('all ships sunk', () => {
+    expect(gb.allShipsSunk()).toEqual( 'All ships not sunk!')
+  })
+
 })

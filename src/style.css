@@ -3,4 +3,28 @@
     color: white;
     font-size: 10px;
     margin: 0;
+		box-sizing: border-box;
+}
+
+main {
+	/* width: 100%;
+	height: 100%; */
+}
+
+.board {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(10, 1fr);
+	width: 400px;
+	height: 400px;
+	gap: 1px;
+	border: 1px solid black;
+}
+
+.grid-cell {
+	border: 1px solid light gray;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

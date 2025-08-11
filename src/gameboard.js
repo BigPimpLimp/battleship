@@ -32,19 +32,10 @@ export class Gameboard {
   }
 
   allShipsSunk() {
-    this.allShips.some(i => { // not using .some correctly here
-      console.log(i)
-      if (i.sunk !== true) return 'All ships not sunk!';
-    })
+    if (this.allShips.some(i => i.sunk !== true)) {
+      return 'All ships not sunk!';
+    }
     return 'All ships sunk!';
-    // for (let i = 0; i < this.board.length; i++) {
-    //   for (let j = 0; j < this.board[i].length; j++) {
-    //     if (this.board[j].hasShip && this.board[j].isHit === false) {
-    //       return 'All ships not sunk!'
-    //     }
-    //   }
-    // }
-    // return 'All ships sunk!'
   }
 }
 

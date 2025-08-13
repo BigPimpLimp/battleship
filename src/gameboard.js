@@ -1,4 +1,5 @@
 import { Ship } from './ship'
+import { highlightShip } from "./dom";
 
 export class Gameboard {
   constructor() {
@@ -29,6 +30,8 @@ export class Gameboard {
     this.board[x][y].hasShip = true;
     this.board[x][y].shipId = ship;
     this.allShips.push(ship);
+
+    highlightShip(coordinates);
   }
 
   allShipsSunk() {

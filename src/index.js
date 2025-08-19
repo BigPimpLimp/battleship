@@ -2,7 +2,7 @@ import './style.css';
 import { Gameboard } from './gameboard';
 import { Ship } from './ship';
 import { Player } from './player';
-import { highlightShip } from './dom';
+import { buildBoard, highlightShip } from './dom';
 console.log('Connected');
 
 
@@ -13,45 +13,21 @@ console.log('Connected');
 // gb.placeShip([0, 1], carrier)
 // // gb.recieveAttack([0, 1]);
 
-
-
-
 document.addEventListener('DOMContentLoaded', () => { 
-  const playerGridContainer = document.getElementById('player-board');
-  const enemyGridContainer = document.getElementById('enemy-board');
-  const gridSize = 10;
-  const columns = ['0,', '1,', '2,', '3,', '4,', '5,', '6,', '7,', '8,', '9,']
-  const rows = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  //['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-
-  for (let i = 0; i < gridSize; i ++) {
-    for (let j = 0; j < gridSize; j++) {
-      const cell = document.createElement('div');
-      cell.classList.add('grid-cell');
-      cell.id = columns[i] + rows[j];
-      cell.innerHTML = 'x'
-      playerGridContainer.appendChild(cell);
-    }
-  }
-
-  for (let i = 0; i < gridSize; i ++) {
-    for (let j = 0; j < gridSize; j++) {
-      const cell = document.createElement('div');
-      cell.classList.add('grid-cell');
-      cell.innerHTML = 'x'
-    enemyGridContainer.appendChild(cell);
-    }
-  }
-
-})
+  buildBoard('player-board', 'pc');
+  buildBoard('enemy-board', 'ec')
 
   const player1 = new Player ();
   const npc = new Player ();
 
-  player1.myBoard.placeShip([0, 7], 'carrier'); //highlight ship function is not working
-  // const test = document.getElementById('0,7')
-  // console.log(test)
-  // test.style.backgroundColor = 'orange'
+  player1.myBoard.placeShip('carrier', [0, 5], [0, 6], [0, 7], [0, 8], [0, 9]); //highlight ship function is not working
+  player1.myBoard.placeShip('battleship', [3, 4], [3, 5], [3, 6], [3, 7]);
+  player1.myBoard.placeShip('cruiser', [9, 5], [9, 6], [9, 7]);
+  player1.myBoard.placeShip('submarine', [5, 5], [6, 5], [7, 5]);
+  player1.myBoard.placeShip('destroyer', [7, 0], [8, 0]);
+
+})
+
 
 
 

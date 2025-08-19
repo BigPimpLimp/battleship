@@ -25,13 +25,15 @@ export class Gameboard {
     this.board[x][y].isHit = true;
   }
 
-  placeShip(coordinates, ship) {
-    const [x, y] = coordinates;
-    this.board[x][y].hasShip = true;
-    this.board[x][y].shipId = ship;
-    this.allShips.push(ship);
+  placeShip(ship, ...coordinates) {
+    for (let i = 0; i < coordinates.length; i++) {
+      const [x, y] = coordinates[i];
+      this.board[x][y].hasShip = true;
+      this.board[x][y].shipId = ship;
+      this.allShips.push(ship);
+      highlightShip(coordinates[i]);
+    }
 
-    highlightShip(coordinates);
   }
 
   allShipsSunk() {

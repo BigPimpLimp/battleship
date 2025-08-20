@@ -26,9 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
   player1.myBoard.placeShip('submarine', [5, 5], [6, 5], [7, 5]);
   player1.myBoard.placeShip('destroyer', [7, 0], [8, 0]);
 
+
+  const gridCell = document.getElementById('enemy-board');
+  gridCell.addEventListener('mousemove', (event) => {
+    event.target.style.borderColor = 'green';
+  })
+  gridCell.addEventListener('mouseout', (event) => {
+    event.target.style.borderColor = 'lightgrey'
+  })
+  gridCell.addEventListener('click', (event) => {
+    event.target.innerHTML = 'X';
+    const cell = event.target.id.slice(2).split(',');
+    const coordinates = cell.map(Number);
+    npc.myBoard.recieveAttack(coordinates)
+  })
 })
-
-
 
 
 

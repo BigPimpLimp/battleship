@@ -9,14 +9,13 @@ export function buildBoard(boardId, cellId) {
       const cell = document.createElement('div');
       cell.classList.add('grid-cell');
       cell.id = `${cellId + columns[i] + rows[j]}`;
-      cell.innerHTML = 'x'
+      // cell.innerHTML = 'x'
       gridContainer.appendChild(cell);
     }
   }
 }
 
 export function highlightShip(coordinates) { //only works for player board currently
-  console.log(coordinates)
   const cell = document.getElementById('pc' + coordinates.toString());
   cell.style.backgroundColor = 'purple'
 }

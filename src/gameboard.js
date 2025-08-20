@@ -13,8 +13,11 @@ export class Gameboard {
 
   recieveAttack(coordinates) {
     const [x, y] = coordinates;
+    console.log(x, y)
     if (this.board[x][y].isHit) {
-      return 'Already hit dummy!'
+      console.log(this.board)
+      console.log('Already hit dummy!')
+      return;
     }
     if (this.board[x][y].hasShip) {
       this.board[x][y].isHit = true;
@@ -22,7 +25,9 @@ export class Gameboard {
       this.board[x][y].shipId.checkIfSunk();
       return;
     }
-    this.board[x][y].isHit = true;
+
+    this.board[x][y].isHit = true; //causing all cells in row [x] isHit > true;
+    console.log(this.board[x][y])
   }
 
   placeShip(ship, ...coordinates) {

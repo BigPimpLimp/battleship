@@ -6,13 +6,6 @@ import { buildBoard, highlightShip } from './dom';
 console.log('Connected');
 
 
-// export const carrier = new Ship(3, 'carrier')
-// carrier.hit()
-// carrier.hit()
-// export const gb = new Gameboard();
-// gb.placeShip([0, 1], carrier)
-// // gb.recieveAttack([0, 1]);
-
 document.addEventListener('DOMContentLoaded', () => { 
   buildBoard('player-board', 'pc');
   buildBoard('enemy-board', 'ec')
@@ -20,14 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const player1 = new Player ();
   const npc = new Player ();
 
-  player1.myBoard.placeShip('carrier', [0, 5], [0, 6], [0, 7], [0, 8], [0, 9]); //highlight ship function is not working
+  player1.myBoard.placeShip('carrier', [0, 5], [0, 6], [0, 7], [0, 8], [0, 9]); 
   player1.myBoard.placeShip('battleship', [3, 4], [3, 5], [3, 6], [3, 7]);
   player1.myBoard.placeShip('cruiser', [9, 5], [9, 6], [9, 7]);
   player1.myBoard.placeShip('submarine', [5, 5], [6, 5], [7, 5]);
   player1.myBoard.placeShip('destroyer', [7, 0], [8, 0]);
 
+  npc.myBoard.placeShip('carrier', [0, 5], [0, 6], [0, 7], [0, 8], [0, 9]); 
+  npc.myBoard.placeShip('battleship', [3, 4], [3, 5], [3, 6], [3, 7]);
+  npc.myBoard.placeShip('cruiser', [9, 5], [9, 6], [9, 7]);
+  npc.myBoard.placeShip('submarine', [5, 5], [6, 5], [7, 5]);
+  npc.myBoard.placeShip('destroyer', [7, 0], [8, 0]);
 
-  const gridCell = document.getElementById('enemy-board');
+
+  const gridCell = document.getElementById('enemy-board'); //is allowing the entire grid to be selected and causes error+
   gridCell.addEventListener('mousemove', (event) => {
     event.target.style.borderColor = 'green';
   })

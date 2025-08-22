@@ -3,49 +3,54 @@ import { highlightShip } from "./dom";
 
 export class Gameboard {
   constructor() {
-    this.board = Array.from({ length: 10 }, () => Array(10).fill({
-      hasShip: false,
-      shipId: null,
-      isHit: false
-    }));
+    this.board = Array.from({ length: 10 }, () => 
+      Array.from({ length: 10 }, () => ({
+        hasShip: false,
+        shipId: null,
+        isHit: false
+      }))
+    );
     this.allShips = [];
   }
 
   recieveAttack(coordinates) {
     const [x, y] = coordinates;
-    console.log(x, y)
     if (this.board[x][y].isHit) {
-      console.log(this.board)
-      console.log('Already hit dummy!')
+      alert('Already hit dummy!')
       return;
     }
     if (this.board[x][y].hasShip) {
       this.board[x][y].isHit = true;
       this.board[x][y].shipId.hit();
       this.board[x][y].shipId.checkIfSunk();
+      console.log(this.allShips)
+      this.allShipsSunk();
       return;
     }
+    this.board[x][y].isHit = true;
 
-    this.board[x][y].isHit = true; //causing all cells in row [x] isHit > true;
-    console.log(this.board[x][y])
   }
 
   placeShip(ship, ...coordinates) {
+    const newShip = new Ship(coordinates.length, ship)
+    this.allShips.push(newShip);
+     
     for (let i = 0; i < coordinates.length; i++) {
       const [x, y] = coordinates[i];
       this.board[x][y].hasShip = true;
-      this.board[x][y].shipId = ship;
-      this.allShips.push(ship);
+      this.board[x][y].shipId = newShip;
       highlightShip(coordinates[i]);
     }
 
   }
 
-  allShipsSunk() {
+  allShipsSunk() { 
     if (this.allShips.some(i => i.sunk !== true)) {
-      return 'All ships not sunk!';
+      return;
     }
-    return 'All ships sunk!';
+    else  {
+      alert('All ships have fallen')
+    }
   }
 }
 

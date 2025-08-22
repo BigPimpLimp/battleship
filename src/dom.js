@@ -9,7 +9,6 @@ export function buildBoard(boardId, cellId) {
       const cell = document.createElement('div');
       cell.classList.add('grid-cell');
       cell.id = `${cellId + columns[i] + rows[j]}`;
-      // cell.innerHTML = 'x'
       gridContainer.appendChild(cell);
     }
   }

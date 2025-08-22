@@ -13,6 +13,7 @@ export class Ship {
 	checkIfSunk() {
 		if (this.hits >= this.length) {
 			this.sunk = true;
+			alert(`${this.name} has fallen`)
 		}
 	}
 }

@@ -1,5 +1,5 @@
 import { Ship } from './ship'
-import { highlightShip } from "./dom";
+import { highlightShip, updatePlayerBoard } from "./dom";
 
 export class Gameboard {
   constructor() {
@@ -28,8 +28,28 @@ export class Gameboard {
       return;
     }
     this.board[x][y].isHit = true;
-
   }
+
+  autoAttack() {
+    const coordinates = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
+    const [x, y] = coordinates;
+    if (this.board[x][y].isHit) {
+      this.autoAttack();
+      return;
+    }
+    if (this.board[x][y].hasShip) {
+      this.board[x][y].isHit = true;
+      this.board[x][y].shipId.hit();
+      this.board[x][y].shipId.checkIfSunk();
+      console.log(this.allShips)
+      this.allShipsSunk();
+      updatePlayerBoard(coordinates)
+      return;
+    }
+    this.board[x][y].isHit = true;
+    updatePlayerBoard(coordinates);
+  }
+  
 
   placeShip(ship, ...coordinates) {
     const newShip = new Ship(coordinates.length, ship)
@@ -41,7 +61,21 @@ export class Gameboard {
       this.board[x][y].shipId = newShip;
       highlightShip(coordinates[i]);
     }
+  }
 
+  randomShips() {
+    this.wipeBoard();
+    //do stuff
+  }
+
+  wipeBoard() {
+    this.board = Array.from({ length: 10 }, () => 
+      Array.from({ length: 10 }, () => ({
+        hasShip: false,
+        shipId: null,
+        isHit: false
+      }))
+    );
   }
 
   allShipsSunk() { 

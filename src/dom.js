@@ -18,3 +18,8 @@ export function highlightShip(coordinates) { //only works for player board curre
   const cell = document.getElementById('pc' + coordinates.toString());
   cell.style.backgroundColor = 'purple'
 }
+
+export function updatePlayerBoard(coordinates) {
+    const playerCell = document.getElementById('pc' + coordinates.toString());
+    playerCell.innerHTML = 'X';
+}

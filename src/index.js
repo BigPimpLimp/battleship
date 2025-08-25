@@ -5,6 +5,7 @@ import { Player } from './player';
 import { buildBoard, highlightShip } from './dom';
 console.log('Connected');
 
+[Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
 
 document.addEventListener('DOMContentLoaded', () => { 
   buildBoard('player-board', 'pc');
@@ -37,14 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     event.target.innerHTML = 'X';
     const cell = event.target.id.slice(2).split(',');
     const coordinates = cell.map(Number);
-    npc.myBoard.recieveAttack(coordinates)
+    npc.myBoard.recieveAttack(coordinates);
+    player1.myBoard.autoAttack();
   })
 })
 
 
 
-
-
-// const gridItem = document.querySelector('[style*="grid-column: 9"][style*="grid-row: 1"]');
-// gridItem.innerHTML = 'adf'
 

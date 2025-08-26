@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   npc.myBoard.placeShip('submarine', [5, 5], [6, 5], [7, 5]);
   npc.myBoard.placeShip('destroyer', [7, 0], [8, 0]);
 
+  player1.myBoard.wipeBoard();
 
   const gridCell = document.getElementById('enemy-board'); //is allowing the entire grid to be selected and causes error+
   gridCell.addEventListener('mousemove', (event) => {
@@ -38,8 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     event.target.innerHTML = 'X';
     const cell = event.target.id.slice(2).split(',');
     const coordinates = cell.map(Number);
-    npc.myBoard.recieveAttack(coordinates);
-    player1.myBoard.autoAttack();
+    let verify = npc.myBoard.recieveAttack(coordinates);
+    if (verify) {
+      player1.myBoard.autoAttack();
+    }   
   })
 })
 

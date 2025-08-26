@@ -1,5 +1,5 @@
 import { Ship } from './ship'
-import { highlightShip, updatePlayerBoard } from "./dom";
+import { highlightShip, resetBoardStyling, updatePlayerBoard } from "./dom";
 
 export class Gameboard {
   constructor() {
@@ -17,7 +17,7 @@ export class Gameboard {
     const [x, y] = coordinates;
     if (this.board[x][y].isHit) {
       alert('Already hit dummy!')
-      return;
+      return false;
     }
     if (this.board[x][y].hasShip) {
       this.board[x][y].isHit = true;
@@ -25,9 +25,10 @@ export class Gameboard {
       this.board[x][y].shipId.checkIfSunk();
       console.log(this.allShips)
       this.allShipsSunk();
-      return;
+      return true;
     }
     this.board[x][y].isHit = true;
+    return true;
   }
 
   autoAttack() {
@@ -65,7 +66,20 @@ export class Gameboard {
 
   randomShips() {
     this.wipeBoard();
-    //do stuff
+    const shipLengths = [5, 4, 3, 3, 2];
+    const takenCells = []
+    // const carrier = [];
+    // const battleship = [];
+    // const cruiser = [];
+    // const submarine = [];
+    // const destroyer = [];
+    let coords = this.randomCoordinates();
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < shipLengths[i]; j++) {
+        
+      }
+    }
   }
 
   wipeBoard() {
@@ -75,7 +89,9 @@ export class Gameboard {
         shipId: null,
         isHit: false
       }))
+      
     );
+    resetBoardStyling();
   }
 
   allShipsSunk() { 
@@ -86,6 +102,17 @@ export class Gameboard {
       alert('All ships have fallen')
     }
   }
+
+  randomCoordinates(num) {
+    const initialCoords = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+    let randomNum = Math.floor(Math.random() * 10);
+
+    const diff1 = Math.abs(initialCoords[0] - randomNum);
+    const diff2 = Math.abs(initialCoords[1] - randomNum);
+
+  }
+
+
 }
 
 

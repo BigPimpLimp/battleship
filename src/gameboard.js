@@ -104,11 +104,37 @@ export class Gameboard {
   }
 
   randomCoordinates(num) {
-    const initialCoords = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+    const arr = [];
+    const initialCoords = [
+      Math.floor(Math.random() * 10), 
+      Math.floor(Math.random() * 10)
+    ];
+
+    //need to find a way outOfBounds tracks which index is in range
+    const outOfBounds = ([x, y]) => 
+      [x, y].every(coord => coord + num > 9 && coord - num < 0);
+    
+    if (outOfBounds(initialCoords)) {
+      return this.randomCoordinates(num);
+    }
+
     let randomNum = Math.floor(Math.random() * 10);
 
     const diff1 = Math.abs(initialCoords[0] - randomNum);
     const diff2 = Math.abs(initialCoords[1] - randomNum);
+
+    if (initialCoords[0] + 9) {
+      for (let i = 0; i < num; i++) {
+        arr.push([...initialCoords])
+        initialCoords[0] += 1;
+      }
+    }
+    else {
+      for (let i = 0; i < num; i++) {
+        arr.push([...initialCoords])
+        initialCoords[1] += 1;
+      }      
+    }
 
   }
 

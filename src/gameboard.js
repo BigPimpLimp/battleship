@@ -52,7 +52,7 @@ export class Gameboard {
   }
   
 
-  placeShip(ship, ...coordinates) {
+  placeShip(ship, coordinates) {
     const newShip = new Ship(coordinates.length, ship)
     this.allShips.push(newShip);
      
@@ -67,18 +67,26 @@ export class Gameboard {
   randomShips() {
     this.wipeBoard();
     const shipLengths = [5, 4, 3, 3, 2];
-    const takenCells = []
-    // const carrier = [];
-    // const battleship = [];
-    // const cruiser = [];
-    // const submarine = [];
-    // const destroyer = [];
-    let coords = this.randomCoordinates();
+    const shipNames = [
+      'carrier', 
+      'battleship', 
+      'cruiser', 
+      'submarine,', 
+      'destroyer'
+    ]
+    const takenCells = [];
 
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < shipLengths[i]; j++) {
-        
+    for (let i = 0; i < shipLengths.length; i++) {
+      let coords = this.randomCoordinates(shipLengths[i]);
+      for (let j = 0; j < coords.length; j++) {
+        if (takenCells.includes(coords[j])) {
+          takenCells = [];
+          return this.randomShips();
+        }
+        takenCells.push(coords[j]);
+
       }
+        this.placeShip(shipNames[i], coords)
     }
   }
 
@@ -110,32 +118,38 @@ export class Gameboard {
       Math.floor(Math.random() * 10)
     ];
 
-    //need to find a way outOfBounds tracks which index is in range
     const outOfBounds = ([x, y]) => 
       [x, y].every(coord => coord + num > 9 && coord - num < 0);
     
     if (outOfBounds(initialCoords)) {
       return this.randomCoordinates(num);
-    }
+    }    
 
-    let randomNum = Math.floor(Math.random() * 10);
-
-    const diff1 = Math.abs(initialCoords[0] - randomNum);
-    const diff2 = Math.abs(initialCoords[1] - randomNum);
-
-    if (initialCoords[0] + 9) {
+    if (initialCoords[0] + num <= 9) {
       for (let i = 0; i < num; i++) {
         arr.push([...initialCoords])
         initialCoords[0] += 1;
       }
     }
-    else {
+    else if (initialCoords[0] - num > 0) {
+      for (let i = 0; i < num; i++) {
+        arr.push([...initialCoords])
+        initialCoords[0] -= 1;
+      }      
+    }
+    else if (initialCoords[1] - num <= 9) {
       for (let i = 0; i < num; i++) {
         arr.push([...initialCoords])
         initialCoords[1] += 1;
       }      
     }
-
+    else if (initialCoords[1] - num > 0) {
+      for (let i = 0; i < num; i++) {
+        arr.push([...initialCoords])
+        initialCoords[1] -= 1;
+      }      
+    }
+    return arr;
   }
 
 

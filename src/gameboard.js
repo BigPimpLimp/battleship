@@ -112,45 +112,53 @@ export class Gameboard {
   }
 
   randomCoordinates(num) {
-    const arr = [];
+    const arr = []; 
     const initialCoords = [
       Math.floor(Math.random() * 10), 
       Math.floor(Math.random() * 10)
     ];
-
-    const outOfBounds = ([x, y]) => 
-      [x, y].every(coord => coord + num > 9 && coord - num < 0);
-    
-    if (outOfBounds(initialCoords)) {
-      return this.randomCoordinates(num);
-    }    
-
-    if (initialCoords[0] + num <= 9) {
-      for (let i = 0; i < num; i++) {
-        arr.push([...initialCoords])
-        initialCoords[0] += 1;
-      }
-    }
-    else if (initialCoords[0] - num > 0) {
-      for (let i = 0; i < num; i++) {
-        arr.push([...initialCoords])
-        initialCoords[0] -= 1;
-      }      
-    }
-    else if (initialCoords[1] - num <= 9) {
-      for (let i = 0; i < num; i++) {
-        arr.push([...initialCoords])
-        initialCoords[1] += 1;
-      }      
-    }
-    else if (initialCoords[1] - num > 0) {
-      for (let i = 0; i < num; i++) {
-        arr.push([...initialCoords])
-        initialCoords[1] -= 1;
-      }      
-    }
+       
+    this.randomizer(arr, initialCoords, num);
     return arr;
   }
+
+  randomizer(arr, initialCoords, num) {
+    // [dx, dy] represents Right, Left, Down, Up
+  const directions = [
+    [1, 0],  // Right
+    [-1, 0], // Left
+    [0, 1],  // Down
+    [0, -1]  // Up
+  ];
+
+  // Shuffle directions for randomness
+  for (let i = directions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [directions[i], directions[j]] = [directions[j], directions[i]];
+  }
+
+  // Try each direction until one fits
+  for (const [dx, dy] of directions) {
+    const coords = [];
+    let x = initialCoords[0];
+    let y = initialCoords[1];
+
+    // Compute the end coordinate for this direction
+    const endX = x + dx * (num - 1);
+    const endY = y + dy * (num - 1);
+
+    // Check if ship fits inside 0-9 bounds
+    if (endX >= 0 && endX <= 9 && endY >= 0 && endY <= 9) {
+      for (let i = 0; i < num; i++) {
+        coords.push([x, y]);
+        x += dx;
+        y += dy;
+      }
+      arr.push(...coords); // place ship
+      break; // stop after first valid placement
+    }
+  }
+}
 
 
 }

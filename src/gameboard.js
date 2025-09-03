@@ -78,13 +78,21 @@ export class Gameboard {
 
     for (let i = 0; i < shipLengths.length; i++) {
       let coords = this.randomCoordinates(shipLengths[i]);
-      for (let j = 0; j < coords.length; j++) {
-        if (takenCells.includes(coords[j])) {
-          takenCells = [];
-          return this.randomShips();
-        }
+      for (let j = 0; j < coords.length; j++) { 
+        takenCells.some(e => {
+          console.log(e)
+          if (e === coords[j]) { //cannot compare array this way. Need to loop through each value of sub array to compare
+            console.log('kljahsdfkljashdflkjashd')
+            takenCells = [];
+            return this.randomShips();
+          }
+        })
+        // if (takenCells.includes(coords[j])) {
+        //   console.log('takenCells ran')
+        //   takenCells = [];
+        //   return this.randomShips();
+        // }
         takenCells.push(coords[j]);
-
       }
         this.placeShip(shipNames[i], coords)
     }
@@ -99,6 +107,7 @@ export class Gameboard {
       }))
       
     );
+    this.allShips = [];
     resetBoardStyling();
   }
 

@@ -28,5 +28,6 @@ export function resetBoardStyling() {
   const allCells = document.querySelectorAll('.grid-cell');
   allCells.forEach(event => {
     event.style.backgroundColor = 'black'
+    event.innerHTML = '';
   })
 }

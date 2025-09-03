@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // player1.myBoard.wipeBoard();
 
-  const gridCell = document.getElementById('enemy-board'); //is allowing the entire grid to be selected and causes error+
+  const gridCell = document.getElementById('enemy-board'); 
   const randomizeButton = document.getElementById('random');
   gridCell.addEventListener('mousemove', (event) => {
     event.target.style.borderColor = 'green';
@@ -39,17 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   gridCell.addEventListener('click', (event) => {
-    event.target.innerHTML = 'X';
     const cell = event.target.id.slice(2).split(',');
+    if (cell.length !== 2) return; //Ensures no non cells selected
+    event.target.innerHTML = 'X';
     const coordinates = cell.map(Number);
     let verify = npc.myBoard.recieveAttack(coordinates);
     if (verify) {
-      player1.myBoard.autoAttack();
+      setTimeout(() => {
+        player1.myBoard.autoAttack();
+      }, 500)
+      
     }   
   })
   
   randomizeButton.addEventListener('click', () => {
     player1.myBoard.randomShips();
+    console.log(player1.myBoard)
   })
 })
 

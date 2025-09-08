@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const gridCell = document.getElementById('enemy-board'); 
   const randomizeButton = document.getElementById('random');
+  const myShip = document.getElementById('player-board');
+
   gridCell.addEventListener('mousemove', (event) => {
     event.target.style.borderColor = 'green';
   })
@@ -54,7 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
   randomizeButton.addEventListener('click', () => {
     player1.myBoard.randomShips();
-    console.log(player1.myBoard)
+    console.log(player1.myBoard.allShips)
+  })
+
+  myShip.addEventListener('mousedown', (event) => {
+    console.log(event);
   })
 })
 

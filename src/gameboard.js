@@ -23,7 +23,6 @@ export class Gameboard {
       this.board[x][y].isHit = true;
       this.board[x][y].shipId.hit();
       this.board[x][y].shipId.checkIfSunk();
-      console.log(this.allShips)
       this.allShipsSunk();
       return true;
     }
@@ -42,7 +41,6 @@ export class Gameboard {
       this.board[x][y].isHit = true;
       this.board[x][y].shipId.hit();
       this.board[x][y].shipId.checkIfSunk();
-      console.log(this.allShips)
       this.allShipsSunk();
       updatePlayerBoard(coordinates)
       return;
@@ -80,7 +78,7 @@ export class Gameboard {
       let coords = this.randomCoordinates(shipLengths[i]);
       for (let j = 0; j < coords.length; j++) { 
         takenCells.some(e => {
-          console.log(e)
+          // console.log(e)
           if (e === coords[j]) { //cannot compare array this way. Need to loop through each value of sub array to compare
             console.log('kljahsdfkljashdflkjashd')
             takenCells = [];

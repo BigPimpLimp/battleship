@@ -16,7 +16,9 @@ export function buildBoard(boardId, cellId) {
 
 export function highlightShip(coordinates) { //only works for player board currently
   const cell = document.getElementById('pc' + coordinates.toString());
-  cell.style.backgroundColor = 'purple'
+  cell.style.backgroundColor = 'purple';
+  cell.draggable = 'true';
+  cell.classList.add('taken');
 }
 
 export function updatePlayerBoard(coordinates) {

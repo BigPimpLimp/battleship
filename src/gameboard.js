@@ -1,5 +1,5 @@
 import { Ship } from './ship'
-import { highlightShip, resetBoardStyling, updatePlayerBoard } from "./dom";
+import { highlightShip, resetBoardStyling, updateBoard, newGame } from "./dom";
 
 export class Gameboard {
   constructor() {
@@ -22,11 +22,13 @@ export class Gameboard {
     if (this.board[x][y].hasShip) {
       this.board[x][y].isHit = true;
       this.board[x][y].shipId.hit();
+      updateBoard(coordinates, 'ec', true)
       this.board[x][y].shipId.checkIfSunk();
       this.allShipsSunk();
       return true;
     }
     this.board[x][y].isHit = true;
+    updateBoard(coordinates, 'ec', false)
     return true;
   }
 
@@ -42,11 +44,11 @@ export class Gameboard {
       this.board[x][y].shipId.hit();
       this.board[x][y].shipId.checkIfSunk();
       this.allShipsSunk();
-      updatePlayerBoard(coordinates)
+      updateBoard(coordinates, 'pc', true)
       return;
     }
     this.board[x][y].isHit = true;
-    updatePlayerBoard(coordinates);
+    updateBoard(coordinates, 'pc', false);
   }
   
 
@@ -115,6 +117,7 @@ export class Gameboard {
     }
     else  {
       alert('All ships have fallen')
+      newGame();
     }
   }
 

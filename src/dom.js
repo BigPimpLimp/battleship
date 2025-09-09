@@ -1,3 +1,5 @@
+import { player1, npc } from ".";
+
 export function buildBoard(boardId, cellId) {
   const gridContainer = document.getElementById(boardId);
   const gridSize = 10;
@@ -21,9 +23,10 @@ export function highlightShip(coordinates) { //only works for player board curre
   cell.classList.add('taken');
 }
 
-export function updatePlayerBoard(coordinates) {
-    const playerCell = document.getElementById('pc' + coordinates.toString());
-    playerCell.innerHTML = 'X';
+export function updateBoard(coordinates, str, bool) {
+    const cell = document.getElementById(str + coordinates.toString());
+    cell.innerHTML = 'X';
+    if (bool) cell.style.color = 'red'; 
 }
 
 export function resetBoardStyling() { 
@@ -32,4 +35,13 @@ export function resetBoardStyling() {
     event.style.backgroundColor = 'black'
     event.innerHTML = '';
   })
+}
+
+export function newGame() {
+  const userResponse = confirm('Play another game?')
+  
+  if (userResponse) {
+    player1.myBoard.wipeBoard();
+    npc.myBoard.wipeBoard();
+  }
 }

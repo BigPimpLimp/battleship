@@ -5,26 +5,28 @@ import { Player } from './player';
 import { buildBoard, highlightShip } from './dom';
 console.log('Connected');
 
-[Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
+// [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
+
+  export const player1 = new Player ();
+  export const npc = new Player ();
 
 document.addEventListener('DOMContentLoaded', () => { 
   buildBoard('player-board', 'pc');
   buildBoard('enemy-board', 'ec')
 
-  const player1 = new Player ();
-  const npc = new Player ();
+
 
   player1.myBoard.placeShip('carrier', [[0, 5], [0, 6], [0, 7], [0, 8], [0, 9]]); 
   player1.myBoard.placeShip('battleship', [[3, 4], [3, 5], [3, 6], [3, 7]]);
-  // player1.myBoard.placeShip('cruiser', [9, 5], [9, 6], [9, 7]);
-  // player1.myBoard.placeShip('submarine', [5, 5], [6, 5], [7, 5]);
-  // player1.myBoard.placeShip('destroyer', [7, 0], [8, 0]);
+  player1.myBoard.placeShip('cruiser', [[9, 5], [9, 6], [9, 7]]);
+  player1.myBoard.placeShip('submarine', [[5, 5], [6, 5], [7, 5]]);
+  player1.myBoard.placeShip('destroyer', [[7, 0], [8, 0]]);
 
-  // npc.myBoard.placeShip('carrier', [0, 5], [0, 6], [0, 7], [0, 8], [0, 9]); 
-  // npc.myBoard.placeShip('battleship', [3, 4], [3, 5], [3, 6], [3, 7]);
-  // npc.myBoard.placeShip('cruiser', [9, 5], [9, 6], [9, 7]);
-  // npc.myBoard.placeShip('submarine', [5, 5], [6, 5], [7, 5]);
-  // npc.myBoard.placeShip('destroyer', [7, 0], [8, 0]);
+  npc.myBoard.placeShip('carrier', [[0, 5], [0, 6], [0, 7], [0, 8], [0, 9]]); 
+  npc.myBoard.placeShip('battleship', [[3, 4], [3, 5], [3, 6], [3, 7]]);
+  npc.myBoard.placeShip('cruiser', [[9, 5], [9, 6], [9, 7]]);
+  npc.myBoard.placeShip('submarine', [[5, 5], [6, 5], [7, 5]]);
+  npc.myBoard.placeShip('destroyer', [[7, 0], [8, 0]]);
 
   // player1.myBoard.wipeBoard();
 
@@ -42,8 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   gridCell.addEventListener('click', (event) => {
     const cell = event.target.id.slice(2).split(',');
-    if (cell.length !== 2) return; //Ensures no non cells selected
-    event.target.innerHTML = 'X';
+    if (cell.length !== 2) return; //Ensures no non grid-cells selected
     const coordinates = cell.map(Number);
     let verify = npc.myBoard.recieveAttack(coordinates);
     if (verify) {

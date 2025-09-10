@@ -43,5 +43,7 @@ export function newGame() {
   if (userResponse) {
     player1.myBoard.wipeBoard();
     npc.myBoard.wipeBoard();
+    player1.myBoard.defaultShips(player1);
+    npc.myBoard.defaultShips(npc);
   }
 }

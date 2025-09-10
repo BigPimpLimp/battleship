@@ -1,5 +1,6 @@
 import { Ship } from './ship'
 import { highlightShip, resetBoardStyling, updateBoard, newGame } from "./dom";
+import { player1, npc } from '.';
 
 export class Gameboard {
   constructor() {
@@ -24,8 +25,8 @@ export class Gameboard {
       this.board[x][y].shipId.hit();
       updateBoard(coordinates, 'ec', true)
       this.board[x][y].shipId.checkIfSunk();
-      this.allShipsSunk();
-      return true;
+      if (this.allShipsSunk()) return false;
+      else return true;
     }
     this.board[x][y].isHit = true;
     updateBoard(coordinates, 'ec', false)
@@ -64,6 +65,14 @@ export class Gameboard {
     }
   }
 
+  defaultShips(obj) {
+  obj.myBoard.placeShip('carrier', [[0, 5], [0, 6], [0, 7], [0, 8], [0, 9]]); 
+  obj.myBoard.placeShip('battleship', [[3, 4], [3, 5], [3, 6], [3, 7]]);
+  obj.myBoard.placeShip('cruiser', [[9, 5], [9, 6], [9, 7]]);
+  obj.myBoard.placeShip('submarine', [[5, 5], [6, 5], [7, 5]]);
+  obj.myBoard.placeShip('destroyer', [[7, 0], [8, 0]]);
+  }
+
   randomShips() {
     this.wipeBoard();
     const shipLengths = [5, 4, 3, 3, 2];
@@ -74,24 +83,22 @@ export class Gameboard {
       'submarine,', 
       'destroyer'
     ]
-    const takenCells = [];
+    let takenCells = [];
 
     for (let i = 0; i < shipLengths.length; i++) {
       let coords = this.randomCoordinates(shipLengths[i]);
       for (let j = 0; j < coords.length; j++) { 
         takenCells.some(e => {
           // console.log(e)
-          if (e === coords[j]) { //cannot compare array this way. Need to loop through each value of sub array to compare
-            console.log('kljahsdfkljashdflkjashd')
+          // console.log('break')
+          // console.log(coords[j])
+          if (e[0] === coords[j][0] && e[1] === coords[j][1]) { //fixed comparison but body of if statement will add more than 5 ships sometimes
+            console.log('kljahsdfkljashdflkjashd')              //needs review
             takenCells = [];
-            return this.randomShips();
+            this.randomShips();
+            return;
           }
         })
-        // if (takenCells.includes(coords[j])) {
-        //   console.log('takenCells ran')
-        //   takenCells = [];
-        //   return this.randomShips();
-        // }
         takenCells.push(coords[j]);
       }
         this.placeShip(shipNames[i], coords)
@@ -118,6 +125,7 @@ export class Gameboard {
     else  {
       alert('All ships have fallen')
       newGame();
+      return true;
     }
   }
 

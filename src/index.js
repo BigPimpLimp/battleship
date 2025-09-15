@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   randomizeButton.addEventListener('click', () => {
     player1.myBoard.randomShips();
+    // npc.myBoard.randomShips(); //causes issues with marking hits on board, not sure if DOM or Gameboard
     console.log(player1.myBoard.allShips)
   })
 

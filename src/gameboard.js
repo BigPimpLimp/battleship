@@ -80,28 +80,22 @@ export class Gameboard {
       'carrier', 
       'battleship', 
       'cruiser', 
-      'submarine,', 
+      'submarine', 
       'destroyer'
     ]
     let takenCells = [];
 
     for (let i = 0; i < shipLengths.length; i++) {
-      let coords = this.randomCoordinates(shipLengths[i]);
-      for (let j = 0; j < coords.length; j++) { 
-        takenCells.some(e => {
-          // console.log(e)
-          // console.log('break')
-          // console.log(coords[j])
-          if (e[0] === coords[j][0] && e[1] === coords[j][1]) { //fixed comparison but body of if statement will add more than 5 ships sometimes
-            console.log('kljahsdfkljashdflkjashd')              //needs review
-            takenCells = [];
-            this.randomShips();
-            return;
-          }
-        })
-        takenCells.push(coords[j]);
-      }
-        this.placeShip(shipNames[i], coords)
+      let coords;
+
+      //generate coords until finds non overlapping cords
+      do {
+        coords = this.randomCoordinates(shipLengths[i]);
+      } while (coords.some(a => takenCells.some(b => b[0] === a[0] && b[1] === a[1]))) //returns false if acceptable coords are found.
+
+        takenCells.push(...coords);
+
+        this.placeShip(shipNames[i], coords);
     }
   }
 
